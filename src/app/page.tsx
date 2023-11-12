@@ -1,9 +1,9 @@
-import Image from 'next/image'
+import Header from "./components/Header";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen">
-    <span>fghj</span>
+    <main className="min-h-screen w-full stroke-lime-100">
+      <Header/>
     </main>
   )
 }
