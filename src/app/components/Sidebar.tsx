@@ -18,6 +18,7 @@ export const Sidebar = (props: Props) => {
                     <li className="nav-item hover:border-r-2 text-xl leading-10 hover:bg-slate-500 border-green-500"><Link href="/tasks" className="nav-link">my tasks</Link></li>
                     <li className="nav-item hover:border-r-2 text-xl leading-10 hover:bg-slate-500 border-green-500"><a href="#" className="nav-link">projets</a></li>
                     <li className="nav-item hover:border-r-2 text-xl leading-10 hover:bg-slate-500 border-green-500"><a href="#" className="nav-link">calendar</a></li>
+                    <li className="nav-item hover:border-r-2 text-xl leading-10 hover:bg-slate-500 border-green-500"><a href="#" className="nav-link">category</a></li>
                     <li className="nav-item flex justify-between mt-5">
                         <span className="nav-link">mode</span>
                         <span className=''>n</span>
