@@ -1,8 +1,9 @@
+import Link from "next/link";
 import Header from "./components/Header";
 
 export default function Home() {
   return (
-    <main className="min-h-screen w-full stroke-lime-100">
+    <main className="container p-4 rounded-md w-full">
       <Header/>
       <div className="flex gap-4 mt-5">
         <div className="recent-projet flex-1">
@@ -40,7 +41,9 @@ export default function Home() {
         <div className="recent-task flex-1">
         <div className="head flex w-full mb-5 justify-between">
             <h2 className="font-bold">Recent tasks</h2>
-            <span className="text-gray-300">view all</span>
+            <span className="text-gray-300">
+              <Link href={"/tasks"}>view all</Link>
+            </span>
           </div>
 
           <div className="task_container flex flex-col gap-4">

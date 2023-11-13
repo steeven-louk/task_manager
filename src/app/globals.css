@@ -12,5 +12,23 @@ body{
   display: flex;
   gap: 1rem;
   padding: .5rem;
-  overflow: hidden
+  overflow: hidden;
 }
+
+.container{
+  background: #F4F4F4;
+  color: #e74c;
+}
+
+.sidebar{
+  background: #3498DB;
+}
+
+h1,h2,h3{
+  color: #333333
+}
+
+p{
+  color: #666666;
+}
+

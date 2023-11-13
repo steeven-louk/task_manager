@@ -7,7 +7,7 @@ interface Props {
 
 export const Sidebar = (props: Props) => {
     return (
-        <div className='rounded-md p-2 bg-red-800 text-white flex flex-col h-[calc(100vh-1rem)] w-40'>
+        <div className='sidebar rounded-md p-2 bg-red-800 text-white flex flex-col h-[calc(100vh-1rem)] w-40'>
            <div className="logo flex">
             <span className='font-bold mx-auto flex'>logo</span>
            </div>
