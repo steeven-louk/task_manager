@@ -1,17 +1,43 @@
 "use client"
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import Task from './[id]/page';
+import axios from 'axios';
 
-const T =({setModal})=>{
+
+type  area={
+  setModal:any,
+}
+const T =({setModal}:area)=>{
+
+
   return(
     <>
-      <form className="modal my-auto mx-auto flex flex-col p-4 bg-gray-500 rounded-md w-1/2 h-[350px] absolute top-0 bottom-0 left-0 right-0 justify-center">
+      <form className="modal my-auto mx-auto flex flex-col p-4 bg-gray-500 rounded-md w-1/2 h-fit  absolute top-0 bottom-0 left-0 right-0 justify-center">
         <div className="modal-head mb-3">
-          <button onClick={()=>setModal(false)} className='block ms-auto p-2 rounded-md bg-red-500 w-fit text-white font-bold'>X</button>
+          <button type='button' onClick={()=>setModal(false)} className='block ms-auto px-2 rounded-md bg-red-500 w-fit text-white font-bold'>X</button>
         </div>
-      <input type="text" placeholder='titre' className='p-2 mb-2 rounded-md  border border-red-500' />
-        <textarea name="" placeholder='content' className='p-2 rounded-md border border-red-500' id="" cols="30" rows="10"></textarea>
-        <button className='p-2 w-1/2 rounded-md font-bold uppercase transition-all text-white bg-red-600 mt-4 mx-auto hover:bg-red-500'>add task</button>
+      <div className="form-group flex flex-col">
+        <label htmlFor="title">Title</label>
+        <input type="text" name='title' placeholder='titre' className='p-2 mb-2 rounded-md  border border-red-500' />
+      </div>
+      <div className="form-group flex flex-col my-5">
+        <label htmlFor="description">Description</label>
+        <textarea name="description" placeholder='content'  className='p-2 rounded-md border border-red-500'></textarea>
+      </div>
+      <div className="form-group flex flex-col">
+        <label htmlFor="date">Date</label>
+        <input type='date' name="date" className='p-2 rounded-md border border-red-500'/>
+      </div>
+
+      <div className="form-group flex justify-between w-1/2 mt-3">
+        <label htmlFor="completed">toggle completed</label>
+        <input type='checkbox' name="completed" className='p-2' ></input>
+      </div>
+      <div className="form-group flex justify-between w-1/2">
+        <label htmlFor="important">toggle important</label>
+        <input type='checkbox' name="important" className='p-2' ></input>
+      </div>
+        <button type="submit" className='p-2 w-1/2 rounded-md font-bold uppercase transition-all text-white bg-red-600 mt-4 ms-auto hover:bg-red-500'>create task</button>
       </form>
     </>
   )
@@ -19,15 +45,33 @@ const T =({setModal})=>{
 
 const Tasks = () => {
   const [modal, setModal] = useState(false)
+
+  const [task, setTasks] = useState([]);
+
+
+  useEffect(() => {
+    const getTasks =async()=>{
+      try {
+       const data = await axios.get("/api/task");
+       if(data.status === 200){
+         setTasks(data.data.tasks);
+        }
+      } catch (error) {
+         console.log(error)
+      }
+     }
+  
+     getTasks();
+  }, [])
   const showModal =()=>{
     setModal(!modal);
   }
 
-  modal? <Task /> : ''
+  
 
   return (
-    <div className='container relative rounded-md bg-slate-50 p-5'>
-      <div className="head flex mb-10 justify-between">
+    <div className='container relative rounded-md bg-slate-50 p-4'>
+      <div className="head flex mb-5 justify-between">
         <div className="day">
           <h2 className="font-bold capitalize">my day</h2>
           <span>December 2020</span>
@@ -41,68 +85,38 @@ const Tasks = () => {
         <button className='capitalize tracking-widest flex-1 bg-red-500 rounded-md p-2 font-bold text-white mb-5 '>all</button>
         <button className='capitalize tracking-widest flex-1 bg-red-500 rounded-md p-2 font-bold text-white mb-5 '>completed</button>
         <button className='capitalize tracking-widest flex-1 bg-red-500 rounded-md p-2 font-bold text-white mb-5 '>important</button>
-        <button className='capitalize tracking-widest flex-1 bg-red-500 rounded-md p-2 font-bold text-white mb-5 '>Personal</button>
+        {/* <button className='capitalize tracking-widest flex-1 bg-red-500 rounded-md p-2 font-bold text-white mb-5 '>Personal</button> */}
       </div>
-      <div className="task__container gap-6 flex flex-col">
-        <div className="task flex">
-          <div className="flex-1">
-            <h2 className="font-bold">Promotion banner</h2>
-            <div className="bottom">
-            <span>catego</span> - <span className='capitalize text-md text-blue-500'>today</span>
-            </div>
+      <div className="task__container overflow-y-scroll flex flex-wrap w-full gap-3 justify-center h-[calc(100vh-12rem)]">
+       {task?.map((item:any)=>(
+        <>
+             <div className="card p-4 border-2 rounded-xl justify-between flex flex-col overflow-hidden text-white shadow max-w-[20%] w-[100%] h-[12rem] bg-red-500">
+          <div className="card-body cursor-pointer overflow-hidden">
+          <h5 className="title text-sm font-bold mb-3">
+                {item.title}
+               </h5>
+                <div className="card-text  overflow-hidden">
+                <p className="content text-xs text-white text-ellipsis overflow-hidden ... ">
+                  Magnam doloremque eos nisi esse nemo necessitatibus in consequuntur omnis.
+               </p>
+                </div>
           </div>
-          <span className='flex-1 text-end my-auto'>star</span>
+               <div className="card-footer mt-2 flex justify-between align-baseline">
+                <span className="status p-1 w-32 text-sm text-center capitalize font-bold rounded-full text-white bg-green-500">incomplete</span>
+               <div className="action inline-flex gap-3 my-auto">
+                <span>e</span>
+                <span>d</span>
+               </div>
+          </div>
+          
         </div>
+        </>
+       ))}
+ 
 
-        <div className="task flex cursor-pointer" >
-          <div className="flex-1">
-            <h2 className="font-bold">Promotion banner</h2>
-            <div className="bottom">
-            <span>catego</span> - <span className='capitalize text-md text-blue-500'>today</span>
-            </div>
-          </div>
-          <span className='flex-1 text-end my-auto'>star</span>
-        </div>
-
-        <div className="task flex">
-          <div className="flex-1">
-            <h2 className="font-bold">Promotion banner</h2>
-            <div className="bottom">
-            <span>catego</span> - <span className='capitalize text-md text-blue-500'>today</span>
-            </div>
-          </div>
-          <span className='flex-1 text-end my-auto'>star</span>
-        </div>
-
-        <div className="task flex">
-          <div className="flex-1">
-            <h2 className="font-bold">Promotion banner</h2>
-            <div className="bottom">
-            <span>catego</span> - <span className='capitalize text-md text-blue-500'>today</span>
-            </div>
-          </div>
-          <span className='flex-1 text-end my-auto'>star</span>
-        </div>
-
-        <div className="task flex">
-          <div className="flex-1">
-            <h2 className="font-bold">Promotion banner</h2>
-            <div className="bottom">
-            <span>catego</span> - <span className='capitalize text-md text-blue-500'>today</span>
-            </div>
-          </div>
-          <span className='flex-1 text-end my-auto'>star</span>
-        </div>
-
-        <div className="task flex">
-          <div className="flex-1">
-            <h2 className="font-bold">Promotion banner</h2>
-            <div className="bottom">
-            <span>catego</span> - <span className='capitalize text-md text-blue-500'>today</span>
-            </div>
-          </div>
-          <span className='flex-1 text-end my-auto'>star</span>
-        </div>
+        <button className="card p-4 border-2 rounded-xl block overflow-hidden shadow-md max-w-[20%] w-[100%] h-[12rem] bg-gray-200">
+          <span className="text-xl font-bold">add new task</span>
+        </button>
         {modal && <T setModal={setModal}/>}
       </div>
     </div>

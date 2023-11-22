@@ -1,9 +1,44 @@
+"use client"
 import Link from "next/link";
 import Header from "./components/Header";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import ViewModal from "./components/ViewModal";
 
-export default function Home() {
+
+type props ={
+  _id: number,
+  title: string,
+  content: string,
+  task: [],
+  // task: any,
+}
+export default function Home(){
+  
+  const [task, setTasks] = useState([]);
+  const [toggleModal, setToggleModal] = useState(false)
+
+  const showViewModal =()=>{
+    setToggleModal(!toggleModal);
+  }
+
+useEffect(() => {
+  const getRecentlyTasks =async()=>{
+    try {
+     const data = await axios.get("/api/task");
+     if(data.status === 200){
+       setTasks(data.data.tasks);
+      }
+    } catch (error) {
+       console.log(error)
+    }
+   }
+
+   getRecentlyTasks();
+}, [])
+
   return (
-    <main className="container p-4 rounded-md w-full">
+    <main className="container p-3 rounded-md w-full">
       <Header/>
       <div className="flex gap-4 mt-5">
         <div className="recent-projet flex-1">
@@ -47,7 +82,28 @@ export default function Home() {
           </div>
 
           <div className="task_container flex flex-col gap-4">
-              <div className="task shadow p-2">
+            {task?.slice(0,5).map((task)=>(
+
+           <>
+              <div className="task shadow p-2" key={task._id} onClick={showViewModal}>
+                <div className="head flex justify-between">
+                  <h2 className="font-bold">{task.title}</h2>
+                  <span>view</span>
+                </div>
+                <div className="desc">
+                  {task.content}
+                </div>
+              </div>
+
+
+</>
+
+            ))}
+             
+            {/* <ViewModal title={title} content={content} /> */}
+
+
+              {/* <div className="task shadow p-2">
                 <div className="head flex justify-between">
                   <h2 className="font-bold">titlle</h2>
                   <span>view</span>
@@ -75,17 +131,7 @@ export default function Home() {
                 <div className="desc">
                   Lorem ipsum dolor sit amet consectetur.
                 </div>
-              </div>
-
-              <div className="task shadow p-2">
-                <div className="head flex justify-between">
-                  <h2 className="font-bold">titlle</h2>
-                  <span>view</span>
-                </div>
-                <div className="desc">
-                  Lorem ipsum dolor sit amet consectetur.
-                </div>
-              </div>
+              </dsetModal(false)iv> */}
           </div>
         </div>
       </div>
