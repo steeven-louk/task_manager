@@ -6,13 +6,13 @@ import axios from "axios";
 import ViewModal from "./components/ViewModal";
 
 
-type props ={
-  _id: number,
-  title: string,
-  content: string,
-  task: [],
-  // task: any,
-}
+// type props ={
+//   _id: number,
+//   title: string,
+//   content: string,
+//   task: [],
+//   // task: any,
+// }
 export default function Home(){
   
   const [task, setTasks] = useState([]);
@@ -82,7 +82,7 @@ useEffect(() => {
           </div>
 
           <div className="task_container flex flex-col gap-4">
-            {task?.slice(0,5).map((task)=>(
+            {task?.slice(0,5).map((task:any)=>(
 
            <>
               <div className="task shadow p-2" key={task._id} onClick={showViewModal}>

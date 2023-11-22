@@ -12,11 +12,12 @@ const T =({setModal}:area)=>{
 
   return(
     <>
-      <form className="modal my-auto mx-auto flex flex-col p-4 bg-gray-500 rounded-md w-1/2 h-fit  absolute top-0 bottom-0 left-0 right-0 justify-center">
-        <div className="modal-head mb-3">
+      <form className="modal my-auto mx-auto flex flex-col p-3 bg-gray-500 rounded-md max-w-[20rem] w-full h-fit absolute top-0 bottom-0 left-0 right-0 justify-center">
+        <div className="modal-head mb-2">
           <button type='button' onClick={()=>setModal(false)} className='block ms-auto px-2 rounded-md bg-red-500 w-fit text-white font-bold'>X</button>
         </div>
-      <div className="form-group flex flex-col">
+        <hr />
+      <div className="form-group flex flex-col ">
         <label htmlFor="title">Title</label>
         <input type="text" name='title' placeholder='titre' className='p-2 mb-2 rounded-md  border border-red-500' />
       </div>
