@@ -115,21 +115,49 @@ const Tasks = () => {
   const handleShowTask = (item:any)=>{
     setShowTask(true);
     setViewElement(item)
+    console.log(item)
   }
 
-  useEffect(() => {
-    const getTasks =async()=>{
-      try {
-       const data = await axios.get("/api/task");
-       console.log(data)
-       if(data.status === 200){
-         setTasks(data.data.tasks);
-        }
-      } catch (error) {
-         console.log(error)
+
+  const getTasks =async()=>{
+    try {
+     const data = await axios.get("/api/task");
+     console.log(data)
+     if(data.status === 200){
+       setTasks(data.data.tasks);
       }
-     }
-  
+    } catch (error) {
+       console.log(error)
+    }
+   }
+
+  //  const deleteTask =async(id)=>{
+  //     // e.preventDefault();  
+  //     // const config ={params: {_id: id}}
+  //   try {
+
+  //       const data = await axios.delete(`/api/task?id=${id}`);
+
+  //       if(data.status === 200){
+  //         console.log("bien supprimer");
+  //         await getTasks();
+  //       }
+  //     } catch (error) {
+  //       console.log(error)
+  //     }
+  //  }
+  const deleteTask = async(id:any)=>{
+    try{
+      const data = await axios.delete(`/api/task?id=${id}`);
+      if(data.status === 200){
+                console.log("bien supprimer");
+                await getTasks();
+              }
+    }catch(error){ console.log(error)
+  }
+}
+
+  useEffect(() => {
      getTasks();
   }, []);
   const showModal =()=>{
@@ -174,7 +202,7 @@ const Tasks = () => {
               {item?.important &&  <span className="status border p-1 w-32 text-sm text-center capitalize font-bold rounded-full text-white bg-red-500 shadow-md">important</span> }
                <div className="action inline-flex gap-3 my-auto">
                 <span>e</span>
-                <span>d</span>
+                <button onClick={()=>deleteTask(item._id)} type='button'>d</button>
                </div>
           </div>
           
@@ -187,10 +215,11 @@ const Tasks = () => {
           <span className="text-xl font-bold">add new task</span>
         </button>
         {modal && <T setModal={setModal}/>}
-        {showTask && <ViewModal showTask={setShowTask} title={viewElement.title} content={viewElement.description} />}
+        {showTask && <ViewModal showTask={setShowTask} id={viewElement._id} title={viewElement?.title} content={viewElement.description} />}
       </div>
     </div>
   )
 }
+
 
 export default Tasks

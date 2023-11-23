@@ -1,13 +1,15 @@
+import axios from 'axios';
 import React, { useState } from 'react'
 
 
 type props ={
+    id: string,
     title: string,
     content: string,
     showTask: any
 
 }
-const ViewModal = ({title, content, showTask}:props) => {
+const ViewModal = ({id, title, content, showTask}:props) => {
     const [taskTitle, setTitle] = useState(title);
     const [taskContent, setContent] = useState(content)
     // const [important, setImportant] = useState(false)
@@ -34,11 +36,21 @@ const ViewModal = ({title, content, showTask}:props) => {
       }
     }
 
-    const handleSubmit =(e:any)=>{
-      e.preventDefault();
-      alert("success");
-      alert(taskTitle)
-      alert(taskContent)
+    
+
+
+    const handleSubmit =async()=>{
+      // e.preventDefault();
+      try {
+        const data = await axios.put('/api/task',{
+          _id:id,
+          title:taskTitle,
+          description:taskContent
+        })
+        console.log("upsatee",data)
+       } catch (error) {
+        console.log(error)
+       }
     }
 
     return (
@@ -49,7 +61,7 @@ const ViewModal = ({title, content, showTask}:props) => {
         </div>
       <input type="text" name="title" onChange={handleChange("title")} value={taskTitle} placeholder='titre' className='p-2 mb-2 rounded-md  border border-red-500' />
         <textarea name="description" onChange={handleChange("description")}  value={taskContent} placeholder='description' className='p-2 rounded-md border border-red-500' id="" ></textarea>
-        <button type='submit' className='p-2 w-1/2 rounded-md font-bold uppercase transition-all text-white bg-red-600 mt-4 mx-auto hover:bg-red-500'>add task</button>
+        <button type='submit' className='p-2 w-1/2 rounded-md font-bold uppercase transition-all text-white bg-red-600 mt-4 mx-auto hover:bg-red-500'>update task</button>
       </form>
       </div>
   )

@@ -9,7 +9,7 @@ export async function GET(){
     await connectMongoDb().catch((error)=> console.log(error));
 
     try {
-        const tasks = await Tasks.find({});
+        const tasks = await Tasks.find({}).sort();
         return NextResponse.json({tasks}, {status:200});
     } catch (error) {
         return NextResponse.json({error},{status:500});
@@ -39,7 +39,7 @@ export async function PUT(NextRequest:any){
         const body = await NextRequest.json();
         const existingTask = await Tasks.findById(body._id);
         if(!existingTask){
-            return NextResponse.json({"error":"la task n'existe pas"}, {status:404})
+            return NextResponse.json({error:"la task n'existe pas"}, {status:404})
         }
         const updateTask = await Tasks.findByIdAndUpdate(body._id, {$set:body}, {new: true})
         return NextResponse.json({updateTask},{status: 200});
@@ -55,14 +55,17 @@ export async function DELETE(NextRequest:any){
     await connectMongoDb().catch((error)=> console.log(error));
 
     try {
-        const body = await NextRequest.json();
-        const existingTask = await Tasks.findById(body._id);
+        const id = NextRequest.nextUrl.searchParams.get("id")
+        // const body = await NextRequest.json();
+        // const existingTask = await Tasks.findById(body._id);
+        const existingTask = await Tasks.findById(id);
         if(!existingTask){
             console.log("task non trouver");
             return NextResponse.json({"error":"task not found"}, {status:404});
         }
 
-        const task = await Tasks.findByIdAndDelete(existingTask._id);
+        // const task = await Tasks.findByIdAndDelete(existingTask._id);
+        const task = await Tasks.findByIdAndDelete(id);
         return NextResponse.json({task}, {status:200});
 
     } catch (error) {
