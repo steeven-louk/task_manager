@@ -1,7 +1,8 @@
 "use client"
 import React,{useEffect, useState} from 'react'
-import Task from './[id]/page';
+// import Task from './[id]/page';
 import axios from 'axios';
+import ViewModal from '../components/ViewModal';
 
 
 type  area={
@@ -9,34 +10,92 @@ type  area={
 }
 const T =({setModal}:area)=>{
 
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [date, setDate] = useState("");
+  const [completed, setCompleted] = useState(false)
+  const [important, setImportant] = useState(false)
+
+
+const handleChange =(name:string)=>(e:any) =>{
+  switch (name) {
+    case "title":
+      setTitle(e.target.value);
+      break;
+
+      case "description":
+        setDescription(e.target.value);
+        break;
+
+        case "date":
+          setDate(e.target.value);
+          break;
+
+          case "completed":
+            setCompleted(e.target.checked);
+            break;
+            case "important":
+              setImportant(e.target.checked);
+              break;
+           
+  
+    default:
+      break;
+  }
+}
+
+const handleSubmit =async(e:any)=>{
+  e.preventDefault();
+  const TASK = {
+    title,
+    description,
+    date,
+    completed,
+    important
+  }
+  try {
+    const data = await axios.post('/api/task', {...TASK});
+    console.log(data);
+    if(data.status === 201){
+      setTitle('')
+    setDescription('')
+    setDate('')
+    setCompleted(false)
+    setImportant(false)
+    setModal(false);
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
 
   return(
     <>
-      <form className="modal my-auto mx-auto flex flex-col p-3 bg-gray-500 rounded-md max-w-[20rem] w-full h-fit absolute top-0 bottom-0 left-0 right-0 justify-center">
+      <form onSubmit={handleSubmit} className="modal my-auto mx-auto flex flex-col p-3 bg-gray-500 rounded-md max-w-[20rem] w-full h-fit absolute top-0 bottom-0 left-0 right-0 justify-center">
         <div className="modal-head mb-2">
           <button type='button' onClick={()=>setModal(false)} className='block ms-auto px-2 rounded-md bg-red-500 w-fit text-white font-bold'>X</button>
         </div>
         <hr />
       <div className="form-group flex flex-col ">
         <label htmlFor="title">Title</label>
-        <input type="text" name='title' placeholder='titre' className='p-2 mb-2 rounded-md  border border-red-500' />
+        <input type="text" name='title' value={title} onChange={handleChange("title")} placeholder='titre' className='p-2 mb-2 rounded-md  border border-red-500' />
       </div>
       <div className="form-group flex flex-col my-5">
         <label htmlFor="description">Description</label>
-        <textarea name="description" placeholder='content'  className='p-2 rounded-md border border-red-500'></textarea>
+        <textarea name="description" value={description} onChange={handleChange("description")} placeholder='description'  className='p-2 rounded-md border border-red-500'></textarea>
       </div>
       <div className="form-group flex flex-col">
         <label htmlFor="date">Date</label>
-        <input type='date' name="date" className='p-2 rounded-md border border-red-500'/>
+        <input type='date' name="date" value={date} onChange={handleChange("date")} className='p-2 rounded-md border border-red-500'/>
       </div>
 
       <div className="form-group flex justify-between w-1/2 mt-3">
         <label htmlFor="completed">toggle completed</label>
-        <input type='checkbox' name="completed" className='p-2' ></input>
+        <input type='checkbox' name="completed" checked={completed} onChange={handleChange("completed")} className='p-2' ></input>
       </div>
       <div className="form-group flex justify-between w-1/2">
         <label htmlFor="important">toggle important</label>
-        <input type='checkbox' name="important" className='p-2' ></input>
+        <input type='checkbox' name="important" checked={important} onChange={handleChange("important")} className='p-2' ></input>
       </div>
         <button type="submit" className='p-2 w-1/2 rounded-md font-bold uppercase transition-all text-white bg-red-600 mt-4 ms-auto hover:bg-red-500'>create task</button>
       </form>
@@ -44,16 +103,25 @@ const T =({setModal}:area)=>{
   )
 }
 
+
 const Tasks = () => {
-  const [modal, setModal] = useState(false)
+  const [modal, setModal] = useState(false);
+  const [showTask, setShowTask] = useState(false);
+  const [viewElement, setViewElement] = useState()
 
   const [task, setTasks] = useState([]);
 
+
+  const handleShowTask = (item:any)=>{
+    setShowTask(true);
+    setViewElement(item)
+  }
 
   useEffect(() => {
     const getTasks =async()=>{
       try {
        const data = await axios.get("/api/task");
+       console.log(data)
        if(data.status === 200){
          setTasks(data.data.tasks);
         }
@@ -63,12 +131,12 @@ const Tasks = () => {
      }
   
      getTasks();
-  }, [])
+  }, []);
   const showModal =()=>{
     setModal(!modal);
+    
   }
 
-  
 
   return (
     <div className='container relative rounded-md bg-slate-50 p-4'>
@@ -91,19 +159,19 @@ const Tasks = () => {
       <div className="task__container overflow-y-scroll flex flex-wrap w-full gap-3 justify-center h-[calc(100vh-12rem)]">
        {task?.map((item:any)=>(
         <>
-             <div className="card p-4 border-2 rounded-xl justify-between flex flex-col overflow-hidden text-white shadow max-w-[20%] w-[100%] h-[12rem] bg-red-500">
-          <div className="card-body cursor-pointer overflow-hidden">
+             <div key={item._id} className="card p-4 border-2 rounded-xl justify-between flex flex-col overflow-hidden text-white shadow max-w-[20%] w-[100%] h-[12rem] bg-red-500">
+          <div onClick={()=>handleShowTask(item)} className="card-body cursor-pointer overflow-hidden">
           <h5 className="title text-sm font-bold mb-3">
                 {item.title}
                </h5>
                 <div className="card-text  overflow-hidden">
                 <p className="content text-xs text-white text-ellipsis overflow-hidden ... ">
-                  Magnam doloremque eos nisi esse nemo necessitatibus in consequuntur omnis.
-               </p>
+                  {item.description}
+                </p>
                 </div>
           </div>
                <div className="card-footer mt-2 flex justify-between align-baseline">
-                <span className="status p-1 w-32 text-sm text-center capitalize font-bold rounded-full text-white bg-green-500">incomplete</span>
+              {item?.important &&  <span className="status border p-1 w-32 text-sm text-center capitalize font-bold rounded-full text-white bg-red-500 shadow-md">important</span> }
                <div className="action inline-flex gap-3 my-auto">
                 <span>e</span>
                 <span>d</span>
@@ -119,6 +187,7 @@ const Tasks = () => {
           <span className="text-xl font-bold">add new task</span>
         </button>
         {modal && <T setModal={setModal}/>}
+        {showTask && <ViewModal showTask={setShowTask} title={viewElement.title} content={viewElement.description} />}
       </div>
     </div>
   )

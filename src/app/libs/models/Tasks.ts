@@ -4,25 +4,18 @@ import mongoose from "mongoose";
 const Schema  = mongoose.Schema;
 
 const TaskSchema = new Schema({
-    title:{
+    title: {
         type: String,
         required: [true, "title is require"]
     },
-    content:{
+    description:{
         type: String,
     },
-    dueDate: { type: Date},
-   
-    status:{
-        type: String,
-        required: true,
-        enum:[
-            'progress',
-            'important',
-            'completed',
-            'open'
-        ],
-    }
+
+  date: { type: Date}, 
+  important:{type: Boolean},
+  completed:{type: Boolean}
+
 }, {timestamps: true})
 
 export default mongoose?.models?.Task || mongoose.model("Task", TaskSchema);

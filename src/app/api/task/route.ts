@@ -15,11 +15,11 @@ export async function GET(){
     }
 }
 
-export async function POST(req:any){
+export async function POST(NextRequest:any){
     await connectMongoDb().catch((error)=> console.log(error));
 
     try {
-        const body = await req.json();
+        const body = await NextRequest.json();
 
         const newtask = await Tasks.create(body);
         return NextResponse.json(newtask, {status:201});
