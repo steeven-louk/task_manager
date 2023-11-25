@@ -3,6 +3,9 @@ import React,{useEffect, useState} from 'react'
 // import Task from './[id]/page';
 import axios from 'axios';
 import ViewModal from '../components/ViewModal';
+import { FaTrash } from "react-icons/fa";
+import { IoAddCircle } from "react-icons/io5";
+
 
 
 type  area={
@@ -158,7 +161,7 @@ const Tasks = () => {
           <h2 className="font-bold capitalize">my day</h2>
           <span>December 2020</span>
         </div>
-        <button onClick={showModal} className="rounded-md bg-blue-400 w-fit px-2 text-white">+ New task</button>
+        <button onClick={showModal} className="rounded-md bg-blue-400 w-fit px-2 text-white gap-2 flex items-center"><span><IoAddCircle/> </span>New task</button>
       </div>
       <hr className='mb-5'/>
 
@@ -191,7 +194,7 @@ const Tasks = () => {
                <div className="card-footer mt-2 flex justify-between align-baseline">
               {item?.important &&  <span className="status border p-1 w-32 text-sm text-center capitalize font-bold rounded-full text-white bg-red-500 shadow-md">important</span> }
                <div className="action inline-flex gap-3 my-auto">
-                 <button onClick={()=>deleteTask(item._id)} type='button'>d</button>
+                 <button onClick={()=>deleteTask(item._id)} type='button'><FaTrash/></button>
                </div>
           </div>
           
