@@ -131,21 +131,6 @@ const Tasks = () => {
     }
    }
 
-  //  const deleteTask =async(id)=>{
-  //     // e.preventDefault();  
-  //     // const config ={params: {_id: id}}
-  //   try {
-
-  //       const data = await axios.delete(`/api/task?id=${id}`);
-
-  //       if(data.status === 200){
-  //         console.log("bien supprimer");
-  //         await getTasks();
-  //       }
-  //     } catch (error) {
-  //       console.log(error)
-  //     }
-  //  }
   const deleteTask = async(id:any)=>{
     try{
       const data = await axios.delete(`/api/task?id=${id}`);
@@ -168,26 +153,31 @@ const Tasks = () => {
 
   return (
     <div className='container relative rounded-md bg-slate-50 p-4'>
-      <div className="head flex mb-5 justify-between">
+      <div className="head flex flex-wrap mb-5 justify-between">
         <div className="day">
           <h2 className="font-bold capitalize">my day</h2>
           <span>December 2020</span>
         </div>
-        <button onClick={showModal} className="rounded-md bg-blue-400 w-[7rem] text-white">+ New task</button>
+        <button onClick={showModal} className="rounded-md bg-blue-400 w-fit px-2 text-white">+ New task</button>
       </div>
       <hr className='mb-5'/>
 
-      <div className="filtre flex gap-6 justify-center">
-        <button className='capitalize tracking-widest flex-1 bg-red-500 rounded-md p-2 font-bold text-white mb-5 '>my day</button>
-        <button className='capitalize tracking-widest flex-1 bg-red-500 rounded-md p-2 font-bold text-white mb-5 '>all</button>
-        <button className='capitalize tracking-widest flex-1 bg-red-500 rounded-md p-2 font-bold text-white mb-5 '>completed</button>
-        <button className='capitalize tracking-widest flex-1 bg-red-500 rounded-md p-2 font-bold text-white mb-5 '>important</button>
-        {/* <button className='capitalize tracking-widest flex-1 bg-red-500 rounded-md p-2 font-bold text-white mb-5 '>Personal</button> */}
+      <div className="filtre flex md:gap-6 md:justify-center">
+        <button className='capitalize hidden sm:block tracking-widest flex-1 bg-red-500 rounded-md p-2 font-bold text-white mb-5 '>my day</button>
+        <button className='capitalize hidden sm:block tracking-widest flex-1 bg-red-500 rounded-md p-2 font-bold text-white mb-5 '>all</button>
+        <button className='capitalize hidden sm:block tracking-widest flex-1 bg-red-500 rounded-md p-2 font-bold text-white mb-5 '>completed</button>
+        <button className='capitalize hidden sm:block tracking-widest flex-1 bg-red-500 rounded-md p-2 font-bold text-white mb-5 '>important</button>
+        <select name="" id="" className=' sm:hidden p-2 mb-4'>
+          <option value="">my day</option>
+          <option value="">all</option>
+          <option value="">completed</option>
+          <option value="">important</option>
+        </select>
       </div>
-      <div className="task__container overflow-y-scroll flex flex-wrap w-full gap-3 justify-center h-[calc(100vh-12rem)]">
+      <div className="task__container overflow-y-scroll flex flex-wrap w-full gap-3 md:justify-center h-[calc(100vh-12rem)]">
        {task?.map((item:any)=>(
         <>
-             <div key={item._id} className="card p-4 border-2 rounded-xl justify-between flex flex-col overflow-hidden text-white shadow max-w-[20%] w-[100%] h-[12rem] bg-red-500">
+             <div key={item._id} className="card p-4 border-2 rounded-xl justify-between flex flex-col overflow-hidden text-white shadow md:max-w-[29%] w-[100%] h-[12rem] bg-red-500">
           <div onClick={()=>handleShowTask(item)} className="card-body cursor-pointer overflow-hidden">
           <h5 className="title text-sm font-bold mb-3">
                 {item.title}
@@ -201,8 +191,7 @@ const Tasks = () => {
                <div className="card-footer mt-2 flex justify-between align-baseline">
               {item?.important &&  <span className="status border p-1 w-32 text-sm text-center capitalize font-bold rounded-full text-white bg-red-500 shadow-md">important</span> }
                <div className="action inline-flex gap-3 my-auto">
-                <span>e</span>
-                <button onClick={()=>deleteTask(item._id)} type='button'>d</button>
+                 <button onClick={()=>deleteTask(item._id)} type='button'>d</button>
                </div>
           </div>
           
@@ -211,7 +200,7 @@ const Tasks = () => {
        ))}
  
 
-        <button className="card p-4 border-2 rounded-xl block overflow-hidden shadow-md max-w-[20%] w-[100%] h-[12rem] bg-gray-200">
+        <button className="card p-4 border-2 rounded-xl block overflow-hidden shadow-md sm:max-w-[20%] w-[100%] h-[12rem] bg-gray-200">
           <span className="text-xl font-bold">add new task</span>
         </button>
         {modal && <T setModal={setModal}/>}

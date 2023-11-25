@@ -55,7 +55,7 @@ const ViewModal = ({id, title, content, showTask}:props) => {
 
     return (
       <div className='bg-opacity-50 bg-red-500 w-full h-screen'>
-          <form onSubmit={handleSubmit} className="modal shadow-emerald-500 shadow-md my-auto mx-auto flex flex-col p-2 bg-gray-500 rounded-md w-1/2 h-fit absolute top-0 bottom-0 left-0 right-0 justify-center">
+          <form onSubmit={handleSubmit} className="modal shadow-emerald-500 shadow-md my-auto mx-auto flex flex-col p-2 bg-gray-500 rounded-md  h-fit absolute top-0 bottom-0 left-0 right-0 justify-center">
         <div className="modal-head mb-3">
           <button onClick={()=>showTask(false)}  className='block ms-auto px-1 rounded-md bg-red-500 w-fit text-white font-bold'>X</button>
         </div>

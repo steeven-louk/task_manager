@@ -40,14 +40,14 @@ useEffect(() => {
   return (
     <main className="container p-3 rounded-md w-full">
       <Header/>
-      <div className="flex gap-4 mt-5">
+      <div className="flex flex-col overflow-y-scroll h-[calc(100vh-20rem)] md:overflow-y-hidden md:flex-row gap-4 mt-5">
         <div className="recent-projet flex-1">
           <div className="head flex w-full mb-5 justify-between">
             <h2 className="font-bold">Recent projets</h2>
             <span className=" text-gray-300">view all</span>
           </div>
 
-          <div className="projet flex gap-3 ">
+          <div className="projet flex flex-wrap md:flex-nowrap gap-3 ">
             <div className="projet-1 bg-pink-400 p-4 rounded-md w-fit">
                 <h2 className="font-bold">Coinc calc</h2>
                 <span>category</span>
