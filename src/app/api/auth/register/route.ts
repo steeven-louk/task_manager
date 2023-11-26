@@ -1,4 +1,4 @@
-import bcrypt, { genSaltSync } from 'bcrypt';
+import bcrypt from 'bcrypt';
 // import { bcrypt } from 'b';
 import connectMongoDb from '@/app/libs/db';
 import User from '@/app/libs/models/User';
