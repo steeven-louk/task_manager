@@ -100,7 +100,7 @@ const handleSubmit =async(e:any)=>{
         <label htmlFor="important">toggle important</label>
         <input type='checkbox' name="important" checked={important} onChange={handleChange("important")} className='p-2' ></input>
       </div>
-        <button type="submit" className='p-2 w-1/2 rounded-md font-bold uppercase transition-all text-white bg-red-600 mt-4 ms-auto hover:bg-red-500'>create task</button>
+        <button type="submit" className='p-2 w-1/2 rounded-md font-bold uppercase transition-all text-white  mt-4 ms-auto hover:bg-gren-300'>create task</button>
       </form>
     </>
   )
@@ -155,13 +155,13 @@ const Tasks = () => {
 
 
   return (
-    <div className='container relative rounded-md bg-slate-50 p-4'>
+    <div className='container relative rounded-md  p-4'>
       <div className="head flex flex-wrap mb-5 justify-between">
         <div className="day">
           <h2 className="font-bold capitalize">my day</h2>
           <span>December 2020</span>
         </div>
-        <button onClick={showModal} className="rounded-md bg-blue-400 w-fit px-2 text-white gap-2 flex items-center"><span><IoAddCircle/> </span>New task</button>
+        <button onClick={showModal} className="rounded-md w-fit px-2 text-white gap-2 flex items-center"><span><IoAddCircle/> </span>New task</button>
       </div>
       <hr className='mb-5'/>
 
@@ -177,10 +177,10 @@ const Tasks = () => {
           <option value="">important</option>
         </select>
       </div>
-      <div className="task__container overflow-y-scroll flex flex-wrap w-full gap-3 md:justify-center h-[calc(100vh-12rem)]">
+      <div className="task__container  flex flex-wrap w-full gap-3 md:justify-start h-[calc(100vh-12rem)]">
        {task?.map((item:any)=>(
         <>
-             <div key={item._id} className="card p-4 border-2 rounded-xl justify-between flex flex-col overflow-hidden text-white shadow md:max-w-[29%] w-[100%] h-[12rem] bg-red-500">
+             <div key={item._id} className="card p-4 border-2 rounded-xl justify-between flex flex-col overflow-hidden text-white shadow md:max-w-[18%] w-[100%] h-[12rem] ">
           <div onClick={()=>handleShowTask(item)} className="card-body cursor-pointer overflow-hidden">
           <h5 className="title text-sm font-bold mb-3">
                 {item.title}
@@ -203,7 +203,7 @@ const Tasks = () => {
        ))}
  
 
-        <button className="card p-4 border-2 rounded-xl block overflow-hidden shadow-md sm:max-w-[20%] w-[100%] h-[12rem] bg-gray-200">
+        <button className="card p-4 border-2 rounded-xl block overflow-hidden shadow-md sm:max-w-[20%] w-[100%] h-[12rem]">
           <span className="text-xl font-bold">add new task</span>
         </button>
         {modal && <T setModal={setModal}/>}

@@ -9,31 +9,41 @@
 }
 
 body{
+  /* margin: 0; */
   display: flex;
-  gap: 1rem;
-  padding: .3rem;
+  gap: .5rem;
+  padding: .2rem 0 .2rem .2rem;
+  /* padding: .3rem; */
   overflow: hidden;
   height: 100vh;
   position: relative;
+
 }
 
 .container{
-  background: #F4F4F4;
+  background: #242423;
   color: #e74c;
+
+}
+
+.card{
+  background-color: #2A2C24;
+}
+
+button{
+  background: #24D26D;
 }
 
 .sidebar{
-  background: #3498DB;
-  left: 0;
-  top: 0;
-  position: static
+  background: #0C0F0A;
+ margin: auto 0;
 }
 
 h1,h2,h3{
-  color: #333333
+  color: #CFDBD5
 }
 
 p{
-  color: #666666;
+  color: #E8EDDF;
 }
 

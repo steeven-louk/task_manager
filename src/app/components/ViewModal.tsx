@@ -61,7 +61,7 @@ const ViewModal = ({id, title, content, showTask}:props) => {
         </div>
       <input type="text" name="title" onChange={handleChange("title")} value={taskTitle} placeholder='titre' className='p-2 mb-2 rounded-md  border border-red-500' />
         <textarea name="description" onChange={handleChange("description")}  value={taskContent} placeholder='description' className='p-2 rounded-md border border-red-500' id="" ></textarea>
-        <button type='submit' className='p-2 w-1/2 rounded-md font-bold uppercase transition-all text-white bg-red-600 mt-4 mx-auto hover:bg-red-500'>update task</button>
+        <button type='submit' className='p-2 w-1/2 rounded-md font-bold uppercase transition-all text-white  mt-4 mx-auto hover:bg-green-300'>update task</button>
       </form>
       </div>
   )
