@@ -6,6 +6,7 @@ import ViewModal from '../components/ViewModal';
 import { FaTrash } from "react-icons/fa";
 import { IoAddCircle } from "react-icons/io5";
 import Task from '../components/Task';
+import EmptyComponent from '../components/Empty';
 
 
 
@@ -70,6 +71,8 @@ const Tasks = () => {
    }
 });
 
+console.log("eeeeeeeee",filteredTask)
+
 
   return (
     <div className='container relative rounded-md  p-4'>
@@ -85,10 +88,10 @@ const Tasks = () => {
       <div className="filtre flex md:gap-6 md:justify-center">
         {/* {filtre && filtre.map((item, index)=>( */}
   
-        <button onClick={()=>setFilter("my day")} className='capitalize hidden sm:block tracking-widest flex-1 bg-red-500 rounded-md p-2 font-bold text-white mb-5 '>my day</button>
-        <button onClick={()=>setFilter("all")} className='capitalize hidden sm:block tracking-widest flex-1 bg-red-500 rounded-md p-2 font-bold text-white mb-5 '>all</button>
-        <button onClick={()=>setFilter("completed")} className='capitalize hidden sm:block tracking-widest flex-1 bg-red-500 rounded-md p-2 font-bold text-white mb-5 '>completed</button>
-        <button onClick={()=>setFilter("important")} className='capitalize hidden sm:block tracking-widest flex-1 bg-red-500 rounded-md p-2 font-bold text-white mb-5 '>important</button>
+        <button onClick={()=>setFilter("my day")} className={`${getFilter === "my day" ? "bg-red-500" : " bg-transparent border-[2px] border-red-500"} p-2 capitalize hidden sm:block tracking-widest flex-1  rounded-md  font-bold text-white mb-5 `}>my day</button>
+        <button onClick={()=>setFilter("all")} className={`${getFilter === "all" ? "bg-red-500" : " bg-transparent border-[2px] border-red-500"} p-2 capitalize hidden sm:block tracking-widest flex-1  rounded-md  font-bold text-white mb-5 `}>all</button>
+        <button onClick={()=>setFilter("completed")} className={`${getFilter === "completed" ? "bg-red-500" : " bg-transparent border-[2px] border-red-500"} p-2 capitalize hidden sm:block tracking-widest flex-1  rounded-md  font-bold text-white mb-5 `}>completed</button>
+        <button onClick={()=>setFilter("important")} className={`${getFilter === "important" ? "bg-red-500" : " bg-transparent border-[2px] border-red-500"} p-2 capitalize hidden sm:block tracking-widest flex-1  rounded-md  font-bold text-white mb-5 `}>important</button>
         {/* ))} */}
         
         <select name="" id="" className=' sm:hidden p-2 mb-4'>
@@ -99,33 +102,39 @@ const Tasks = () => {
         </select>
       </div>
       <div className="task__container  flex flex-wrap w-full gap-3 md:justify-start h-[calc(100vh-12rem)]">
-       {filteredTask.map((item:any)=>(
-        <>
-             <div key={item._id} className="card p-4 border-2 rounded-xl justify-between flex flex-col overflow-hidden text-white shadow md:max-w-[18%] w-[100%] h-[12rem] ">
-          <div onClick={()=>handleShowTask(item)} className="card-body cursor-pointer overflow-hidden">
-          <h5 className="title text-sm font-bold mb-3">
-                {item.title}
-               </h5>
-                <div className="card-text  overflow-hidden">
-                <p className="content text-xs text-white text-ellipsis overflow-hidden ... ">
-                  {item.description}
-                </p>
-                </div>
-          </div>
-               <div className="card-footer mt-2 flex justify-between align-baseline">
-              {item?.important &&  <span className="status border p-1 w-32 text-sm text-center capitalize font-bold rounded-full text-white bg-red-500 shadow-md">important</span> }
-               <div className="action inline-flex gap-3 my-auto">
-                 <button onClick={()=>deleteTask(item._id)} type='button'><FaTrash/></button>
-               </div>
-          </div>
-        </div>
+       {filteredTask.length === 0 ? <>
+        <EmptyComponent/>
         </>
-       ))}
- 
+        :
+        filteredTask.map((item:any)=>(
+          <>
+               <div key={item._id} className="card p-4 border-2 rounded-xl justify-between flex flex-col overflow-hidden text-white shadow md:max-w-[18%] w-[100%] h-[12rem] ">
+            <div onClick={()=>handleShowTask(item)} className="card-body cursor-pointer overflow-hidden">
+            <h5 className="title text-sm font-bold mb-3">
+                  {item.title}
+                 </h5>
+                  <div className="card-text  overflow-hidden">
+                  <p className="content text-xs text-white text-ellipsis overflow-hidden ... ">
+                    {item.description}
+                  </p>
+                  </div>
+            </div>
+                 <div className="card-footer mt-2 flex justify-between align-baseline">
+                {item?.important &&  <span className="status border p-1 w-32 text-sm text-center capitalize font-bold rounded-full text-white bg-red-500 shadow-md">important</span> }
+                 <div className="action inline-flex gap-3 my-auto">
+                   <button onClick={()=>deleteTask(item._id)} type='button'><FaTrash/></button>
+                 </div>
+            </div>
+              </div>
+          </>
+         ))
+        }
 
+       {filteredTask.length > 0 &&
         <button className="card p-4 border-2 rounded-xl block overflow-hidden shadow-md sm:max-w-[20%] w-[100%] h-[12rem]">
           <span className="text-xl font-bold">add new task</span>
         </button>
+}
         {modal && <Task setModal={setModal}/>}
         {showTask && <ViewModal showTask={setShowTask} id={viewElement._id} title={viewElement?.title} content={viewElement.description} />}
       </div>

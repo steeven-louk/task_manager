@@ -1,20 +1,13 @@
 import React from 'react'
-import { Button, Empty } from 'antd';
+import Image from 'next/image';
 
 const Projet = () => {
   return (
     <div className="container rounded-md">
-         <Empty
-    image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
-    imageStyle={{ height: 60 }}
-    description={
-      <span>
-        Customize <a href="#API">Description</a>
-      </span>
-    }
-  >
-    <Button type="primary">Create Now</Button>
-  </Empty>
+        
+  <div className="loading w-full h-80">
+    <Image src={"/assets/gifs/comingSoon2.gif"} width={100} height={100} className=' objetFit-cover' alt="gif"/>
+  </div>
     </div>
   )
 }
