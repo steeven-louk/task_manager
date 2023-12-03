@@ -5,106 +5,8 @@ import axios from 'axios';
 import ViewModal from '../components/ViewModal';
 import { FaTrash } from "react-icons/fa";
 import { IoAddCircle } from "react-icons/io5";
+import Task from '../components/Task';
 
-
-
-type  area={
-  setModal:any,
-}
-const T =({setModal}:area)=>{
-
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [date, setDate] = useState("");
-  const [completed, setCompleted] = useState(false)
-  const [important, setImportant] = useState(false)
-
-
-const handleChange =(name:string)=>(e:any) =>{
-  switch (name) {
-    case "title":
-      setTitle(e.target.value);
-      break;
-
-      case "description":
-        setDescription(e.target.value);
-        break;
-
-        case "date":
-          setDate(e.target.value);
-          break;
-
-          case "completed":
-            setCompleted(e.target.checked);
-            break;
-            case "important":
-              setImportant(e.target.checked);
-              break;
-           
-  
-    default:
-      break;
-  }
-}
-
-const handleSubmit =async(e:any)=>{
-  e.preventDefault();
-  const TASK = {
-    title,
-    description,
-    date,
-    completed,
-    important
-  }
-  try {
-    const data = await axios.post('/api/task', {...TASK});
-    console.log(data);
-    if(data.status === 201){
-      setTitle('')
-    setDescription('')
-    setDate('')
-    setCompleted(false)
-    setImportant(false)
-    setModal(false);
-    }
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-  return(
-    <>
-      <form onSubmit={handleSubmit} className="modal my-auto mx-auto flex flex-col p-3 bg-gray-500 rounded-md max-w-[20rem] w-full h-fit absolute top-0 bottom-0 left-0 right-0 justify-center">
-        <div className="modal-head mb-2">
-          <button type='button' onClick={()=>setModal(false)} className='block ms-auto px-2 rounded-md bg-red-500 w-fit text-white font-bold'>X</button>
-        </div>
-        <hr />
-      <div className="form-group flex flex-col ">
-        <label htmlFor="title">Title</label>
-        <input type="text" name='title' value={title} onChange={handleChange("title")} placeholder='titre' className='p-2 mb-2 rounded-md  border border-red-500' />
-      </div>
-      <div className="form-group flex flex-col my-5">
-        <label htmlFor="description">Description</label>
-        <textarea name="description" value={description} onChange={handleChange("description")} placeholder='description'  className='p-2 rounded-md border border-red-500'></textarea>
-      </div>
-      <div className="form-group flex flex-col">
-        <label htmlFor="date">Date</label>
-        <input type='date' name="date" value={date} onChange={handleChange("date")} className='p-2 rounded-md border border-red-500'/>
-      </div>
-
-      <div className="form-group flex justify-between w-1/2 mt-3">
-        <label htmlFor="completed">toggle completed</label>
-        <input type='checkbox' name="completed" checked={completed} onChange={handleChange("completed")} className='p-2' ></input>
-      </div>
-      <div className="form-group flex justify-between w-1/2">
-        <label htmlFor="important">toggle important</label>
-        <input type='checkbox' name="important" checked={important} onChange={handleChange("important")} className='p-2' ></input>
-      </div>
-        <button type="submit" className='p-2 w-1/2 rounded-md font-bold uppercase transition-all text-white  mt-4 ms-auto hover:bg-gren-300'>create task</button>
-      </form>
-    </>
-  )
-}
 
 
 const Tasks = () => {
@@ -113,6 +15,7 @@ const Tasks = () => {
   const [viewElement, setViewElement] = useState()
 
   const [task, setTasks] = useState([]);
+  const [getFilter, setFilter] = useState("all");
 
 
   const handleShowTask = (item:any)=>{
@@ -152,6 +55,20 @@ const Tasks = () => {
     setModal(!modal);
     
   }
+  const filteredTask = task.filter((task)=>{
+   switch (getFilter) {
+    case "important":
+      return task.important;
+      break;
+      case "completed":
+      return task.completed
+      break;
+   
+    default:
+      return task
+      break;
+   }
+});
 
 
   return (
@@ -166,10 +83,14 @@ const Tasks = () => {
       <hr className='mb-5'/>
 
       <div className="filtre flex md:gap-6 md:justify-center">
-        <button className='capitalize hidden sm:block tracking-widest flex-1 bg-red-500 rounded-md p-2 font-bold text-white mb-5 '>my day</button>
-        <button className='capitalize hidden sm:block tracking-widest flex-1 bg-red-500 rounded-md p-2 font-bold text-white mb-5 '>all</button>
-        <button className='capitalize hidden sm:block tracking-widest flex-1 bg-red-500 rounded-md p-2 font-bold text-white mb-5 '>completed</button>
-        <button className='capitalize hidden sm:block tracking-widest flex-1 bg-red-500 rounded-md p-2 font-bold text-white mb-5 '>important</button>
+        {/* {filtre && filtre.map((item, index)=>( */}
+  
+        <button onClick={()=>setFilter("my day")} className='capitalize hidden sm:block tracking-widest flex-1 bg-red-500 rounded-md p-2 font-bold text-white mb-5 '>my day</button>
+        <button onClick={()=>setFilter("all")} className='capitalize hidden sm:block tracking-widest flex-1 bg-red-500 rounded-md p-2 font-bold text-white mb-5 '>all</button>
+        <button onClick={()=>setFilter("completed")} className='capitalize hidden sm:block tracking-widest flex-1 bg-red-500 rounded-md p-2 font-bold text-white mb-5 '>completed</button>
+        <button onClick={()=>setFilter("important")} className='capitalize hidden sm:block tracking-widest flex-1 bg-red-500 rounded-md p-2 font-bold text-white mb-5 '>important</button>
+        {/* ))} */}
+        
         <select name="" id="" className=' sm:hidden p-2 mb-4'>
           <option value="">my day</option>
           <option value="">all</option>
@@ -178,7 +99,7 @@ const Tasks = () => {
         </select>
       </div>
       <div className="task__container  flex flex-wrap w-full gap-3 md:justify-start h-[calc(100vh-12rem)]">
-       {task?.map((item:any)=>(
+       {filteredTask.map((item:any)=>(
         <>
              <div key={item._id} className="card p-4 border-2 rounded-xl justify-between flex flex-col overflow-hidden text-white shadow md:max-w-[18%] w-[100%] h-[12rem] ">
           <div onClick={()=>handleShowTask(item)} className="card-body cursor-pointer overflow-hidden">
@@ -197,7 +118,6 @@ const Tasks = () => {
                  <button onClick={()=>deleteTask(item._id)} type='button'><FaTrash/></button>
                </div>
           </div>
-          
         </div>
         </>
        ))}
@@ -206,7 +126,7 @@ const Tasks = () => {
         <button className="card p-4 border-2 rounded-xl block overflow-hidden shadow-md sm:max-w-[20%] w-[100%] h-[12rem]">
           <span className="text-xl font-bold">add new task</span>
         </button>
-        {modal && <T setModal={setModal}/>}
+        {modal && <Task setModal={setModal}/>}
         {showTask && <ViewModal showTask={setShowTask} id={viewElement._id} title={viewElement?.title} content={viewElement.description} />}
       </div>
     </div>

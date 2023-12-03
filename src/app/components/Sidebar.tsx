@@ -30,7 +30,7 @@ export const Sidebar = () => {
                <ul className='capitalize transition'>
                     <li className="nav-item ps-3 md:hover:border-r-4 text-xl leading-10 md:hover:bg-slate-500 border-green-500 flex gap-2"><MdDashboard className=" top-[10px] relative text-2xl "/><Link href="/" className="nav-link hidden md:block">dashboard</Link></li>
                     <li className="nav-item ps-3 my-2 md:hover:border-r-4 text-xl leading-10 md:hover:bg-slate-500 border-green-500 flex gap-2"><GoTasklist className="top-[10px] relative text-2xl"/><Link href="/tasks" className="nav-link hidden md:block">my tasks</Link></li>
-                    <li className="nav-item ps-3 md:hover:border-r-4 text-xl leading-10 md:hover:bg-slate-500 border-green-500 flex gap-2"><AiOutlineFundProjectionScreen className="top-[10px] relative text-2xl"/><a href="#" className="nav-link hidden md:block">projets</a></li>
+                    <li className="nav-item ps-3 md:hover:border-r-4 text-xl leading-10 md:hover:bg-slate-500 border-green-500 flex gap-2"><AiOutlineFundProjectionScreen className="top-[10px] relative text-2xl"/><Link href="/projet" className="nav-link hidden md:block">projets</Link></li>
                     <li className="nav-item ps-3 mt-2 md:hover:border-r-4 text-xl leading-10 md:hover:bg-slate-500 border-green-500 flex gap-2"><FaCalendarAlt className="top-[10px] relative text-2xl"/><a href="#" className="nav-link hidden md:block">calendar</a></li>
                     {/* <li className="nav-item hidden px-3 md:flex justify-between mt-5">
                         <span className="nav-link">mode</span>
