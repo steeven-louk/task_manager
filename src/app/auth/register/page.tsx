@@ -59,7 +59,9 @@ const Register = () => {
   }
 
   useEffect(() => {
+    // @ts-ignore:next-line
     const token = JSON.parse(localStorage.getItem("token"));
+    // @ts-ignore:next-line
     const id = JSON.parse(localStorage.getItem("id"));
     if(!token && !id){
         return ;

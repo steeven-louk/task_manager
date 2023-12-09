@@ -83,11 +83,11 @@ const Tasks = () => {
         <button onClick={()=>setFilter("completed")} className={`${getFilter === "completed" ? "bg-red-500" : " bg-transparent border-[2px] border-red-500"} p-2 capitalize hidden sm:block tracking-widest flex-1  rounded-md  font-bold text-white mb-5 `}>completed</button>
         <button onClick={()=>setFilter("important")} className={`${getFilter === "important" ? "bg-red-500" : " bg-transparent border-[2px] border-red-500"} p-2 capitalize hidden sm:block tracking-widest flex-1  rounded-md  font-bold text-white mb-5 `}>important</button>
          
-        <select name="" id="" className=' sm:hidden p-2 mb-4'>
-          <option value="">my day</option>
-          <option value="">all</option>
-          <option value="">completed</option>
-          <option value="">important</option>
+        <select name=""  className=' sm:hidden p-2 mb-4'>
+          <option value="my day">my day</option>
+          <option value="all">all</option>
+          <option value="completed">completed</option>
+          <option value="important">important</option>
         </select>
       </div>
       <div className="task__container  flex flex-wrap w-full gap-3 md:justify-start h-[calc(100vh-12rem)]">
