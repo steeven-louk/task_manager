@@ -9,7 +9,7 @@ import Task from '../components/Task';
 import EmptyComponent from '../components/Empty';
 // import getTasks from '../services/function';
 import { deleteTask, getTasks } from '../services/function';
-// import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 
 
@@ -20,6 +20,8 @@ const Tasks = () => {
 
   const [task, setTasks] = useState([]);
   const [getFilter, setFilter] = useState("all");
+
+  const router = useRouter();
  
   const handleShowTask = (item:any)=>{
     setShowTask(true);
@@ -28,7 +30,9 @@ const Tasks = () => {
 
 
   const handleDeleteTask = async(id:any)=>{      
-      await deleteTask(id)
+      await deleteTask(id);
+     return router.refresh();
+
   }
 
   useEffect(() => {

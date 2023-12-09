@@ -13,6 +13,7 @@ import { IoMdPerson } from "react-icons/io";
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import Login from '../auth/login/page';
+import { toast } from 'react-toastify';
 
 
 
@@ -34,10 +35,15 @@ export const Sidebar = () => {
             localStorage.removeItem("username")
             localStorage.removeItem("id")
             localStorage.removeItem("token")
+            toast.success('🦄 Wow so easy!')
             setTimeout(() => {
                 // router.replace("auth/login");
-                return <Login/>
-            }, 3000);
+                //  return router.refresh();
+                // return router.push(<Login />);
+                    router.push("auth/login");
+                    //  return router.refresh();
+                    
+             }, 3000);
         }
         return;
     }

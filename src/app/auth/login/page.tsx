@@ -5,6 +5,7 @@ import { FcGoogle } from "react-icons/fc";
 import Link from 'next/link';
 import axios from 'axios';
 import {useRouter} from "next/navigation"
+import { toast } from 'react-toastify';
 
 
 const Login = () => {
@@ -42,7 +43,8 @@ const Login = () => {
         localStorage.setItem('token', JSON.stringify(data?.data.token))
         setEmail("");
         setPassword("")
-      return router.push('/');
+        toast.success(`Bienvenu ${data?.data.data.username}`);
+        router.push('/');
 
         
       }

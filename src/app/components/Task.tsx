@@ -1,6 +1,7 @@
 "use client"
 import React, {useState} from 'react'
 import { addTask } from '../services/function';
+import { useRouter } from 'next/navigation';
 
 type props={
     setModal:any,
@@ -12,7 +13,7 @@ const Task:React.FC<props> = ({setModal}) => {
     const [date, setDate] = useState("");
     const [completed, setCompleted] = useState(false)
     const [important, setImportant] = useState(false)
-  
+    const router = useRouter();
   
   const handleChange =(name:string)=>(e:any) =>{
     switch (name) {
@@ -53,6 +54,7 @@ const Task:React.FC<props> = ({setModal}) => {
               setCompleted(false)
               setImportant(false)
               setModal(false);
+              router.refresh();
             }
           });
   

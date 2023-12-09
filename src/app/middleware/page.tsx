@@ -20,12 +20,12 @@ const UserMiddleware = ({children}:any) => {
         }
         setIsLogin(true)
         return router.push("/");
-    }, [router, isLogin])
+    }, [router, token])
     console.log(token.current)
    return (
  <>
      {/* {!token.current ? <Login/> : */}
-{isLogin === true ?  children : <Login/>}
+{token.current ?  children : <Login/>}
   {/* {children} */}
 {/* } */}
  </>

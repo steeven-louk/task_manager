@@ -6,7 +6,8 @@ import UserMiddleware from './middleware/page';
 import Login from './auth/login/page';
 // import Login from './auth/login/page';
 
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -37,6 +38,16 @@ console.log(token)
         <Sidebar/>
           {children}
         </UserMiddleware>
+        <ToastContainer position="top-right"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="dark"/>
       </body>
     </html>
   )

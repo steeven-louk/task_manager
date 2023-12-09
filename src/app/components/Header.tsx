@@ -6,13 +6,16 @@ const Header = () => {
     moment.locale('fr');
 
     let time = moment().format('[today] dddd')
+
+     // @ts-ignore:next-line
+     const username = JSON.parse(localStorage.getItem('username'))
   return (
     <header>
         <div className="head w-full ">
             <div className="date justify-between flex align-baseline">
                 <span className='font-extrabold'>{time}</span>
                 <div className="user inline-flex gap-3">
-                    <span>name</span>
+                    <span>{username}</span>
                 </div>
             </div>
             <div className="card shadow-lg rounded-md p-4">
