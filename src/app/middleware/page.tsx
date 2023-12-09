@@ -4,6 +4,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Login from '../auth/login/page';
+import Auth from '../auth/pages';
 
 
 const UserMiddleware = ({children}:any) => {
@@ -20,12 +21,12 @@ const UserMiddleware = ({children}:any) => {
         }
         setIsLogin(true)
         return router.push("/");
-    }, [router, token])
+    }, [router, token, isLogin])
     console.log(token.current)
    return (
  <>
      {/* {!token.current ? <Login/> : */}
-{token.current ?  children : <Login/>}
+{isLogin === true ?  children : <Auth/>}
   {/* {children} */}
 {/* } */}
  </>
