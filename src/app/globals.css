@@ -12,8 +12,7 @@ body{
   /* margin: 0; */
   display: flex;
   gap: .5rem;
-  padding: .2rem 0 .2rem .2rem;
-  /* padding: .3rem; */
+  /* padding: .2rem 0 .2rem .2rem; */
   overflow: hidden;
   height: 100vh;
   position: relative;
@@ -37,6 +36,26 @@ button{
 .sidebar{
   background: #0C0F0A;
  margin: auto 0;
+ /* position: relative; */
+}
+
+.sidebar .sidebar-user .btn-group{
+  transform: translateY(36px);
+  z-index: 6;
+  position: relative;
+  transition: all ease .4s;
+}
+.sidebar .sidebar-user:hover .btn-group{
+  transform: translateY(0px);
+}
+
+.user-container{
+  position: relative;
+  z-index: 20;
+  cursor: pointer;
+}
+#coming-soon{
+  animation: beat infinite 1s alternate ease-in-out;
 }
 
 h1,h2,h3{
@@ -47,3 +66,10 @@ p{
   color: #E8EDDF;
 }
 
+@keyframes beat {
+  from{
+    transform: translateY(-2rem);
+  }to{
+    transform: translateY(0);
+  }
+}

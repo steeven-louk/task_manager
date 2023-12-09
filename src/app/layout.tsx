@@ -21,23 +21,21 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
 // @ts-ignore:next-line
-//   let token ;
 
-//   if (typeof window !== 'undefined') {
-//     // Perform localStorage action
-//     token = JSON.parse(localStorage.getItem('token'))
-// console.log(token)
 
-//   }
+  if (typeof window !== 'undefined') {
+    // @ts-ignore:next-line
+ const   token = JSON.parse(localStorage.getItem('token'))
+console.log(token)
+
+  }
 // console.log(token)
   return (
     <html lang="fr">
       <body className={inter.className}>
         <UserMiddleware>
-      <Sidebar/>
-      {children}
-
-     
+        <Sidebar/>
+          {children}
         </UserMiddleware>
       </body>
     </html>

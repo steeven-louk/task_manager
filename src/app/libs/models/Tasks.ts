@@ -12,7 +12,14 @@ const TaskSchema = new Schema({
         type: String,
     },
 
-  date: { type: Date}, 
+  date: { 
+    type: Date,
+    default: Date.now,
+}, 
+user:{
+    type: Schema.Types.ObjectId,
+    ref: "User"
+},
   important:{type: Boolean},
   completed:{type: Boolean}
 

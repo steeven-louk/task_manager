@@ -1,6 +1,6 @@
 "use client"
-import axios from 'axios';
 import React, {useState} from 'react'
+import { addTask } from '../services/function';
 
 type props={
     setModal:any,
@@ -43,27 +43,19 @@ const Task:React.FC<props> = ({setModal}) => {
   
   const handleSubmit =async(e:any)=>{
     e.preventDefault();
-    const TASK = {
-      title,
-      description,
-      date,
-      completed,
-      important
-    }
-    try {
-      const data = await axios.post('/api/task', {...TASK});
-      console.log(data);
-      if(data.status === 201){
-        setTitle('')
-      setDescription('')
-      setDate('')
-      setCompleted(false)
-      setImportant(false)
-      setModal(false);
-      }
-    } catch (error) {
-      console.log(error)
-    }
+
+    await addTask(title,description,date,completed,important)
+          .then((task)=>{
+            if(task){
+              setTitle('')
+              setDescription('')
+              setDate('')
+              setCompleted(false)
+              setImportant(false)
+              setModal(false);
+            }
+          });
+  
   }
 
 

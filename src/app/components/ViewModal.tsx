@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react'
+import { updateTask } from '../services/function';
 
 
 type props ={
@@ -40,17 +41,7 @@ const ViewModal = ({id, title, content, showTask}:props) => {
 
 
     const handleSubmit =async()=>{
-      // e.preventDefault();
-      try {
-        const data = await axios.put('/api/task',{
-          _id:id,
-          title:taskTitle,
-          description:taskContent
-        })
-        console.log("upsatee",data)
-       } catch (error) {
-        console.log(error)
-       }
+       await updateTask(id,taskTitle,taskContent)
     }
 
     return (

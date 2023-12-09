@@ -42,7 +42,7 @@ const Login = () => {
         localStorage.setItem('token', JSON.stringify(data?.data.token))
         setEmail("");
         setPassword("")
-        router.replace('/')
+      return  router.replace('/')
 
         
       }
@@ -59,7 +59,7 @@ const Login = () => {
 
 
   return (
-    <div className='container grid place-items-center '>
+    <div className=' container grid place-items-center '>
         <form onSubmit={handleSubmit} className='form min-w-fit w-1/3  shadow-lg rounded-lg p-5 border-2 border-red-500'>
            <h2 className='text-center uppercase p-2 font-bold'>Login</h2>
            <hr />

@@ -1,12 +1,15 @@
+//@ts-nocheck
 "use client"
 import React,{useEffect, useState} from 'react'
 // import Task from './[id]/page';
-import axios from 'axios';
 import ViewModal from '../components/ViewModal';
 import { FaTrash } from "react-icons/fa";
 import { IoAddCircle } from "react-icons/io5";
 import Task from '../components/Task';
 import EmptyComponent from '../components/Empty';
+// import getTasks from '../services/function';
+import { deleteTask, getTasks } from '../services/function';
+// import { useRouter } from 'next/navigation';
 
 
 
@@ -17,46 +20,31 @@ const Tasks = () => {
 
   const [task, setTasks] = useState([]);
   const [getFilter, setFilter] = useState("all");
-
-
+ 
   const handleShowTask = (item:any)=>{
     setShowTask(true);
     setViewElement(item)
-    console.log(item)
   }
 
 
-  const getTasks =async()=>{
-    try {
-     const data = await axios.get("/api/task");
-     console.log(data)
-     if(data.status === 200){
-       setTasks(data.data.tasks);
-      }
-    } catch (error) {
-       console.log(error)
-    }
-   }
-
-  const deleteTask = async(id:any)=>{
-    try{
-      const data = await axios.delete(`/api/task?id=${id}`);
-      if(data.status === 200){
-                console.log("bien supprimer");
-                await getTasks();
-              }
-    }catch(error){ console.log(error)
+  const handleDeleteTask = async(id:any)=>{      
+      await deleteTask(id)
   }
-}
 
   useEffect(() => {
-     getTasks();
+    const handleGetTask =async()=>{
+      await getTasks().then((task)=>{
+        setTasks(task)
+       });
+    }
+    handleGetTask();
   }, []);
+
   const showModal =()=>{
     setModal(!modal);
     
   }
-  const filteredTask = task.filter((task)=>{
+  const filteredTask = task?.filter((task)=>{
    switch (getFilter) {
     case "important":
       return task.important;
@@ -71,7 +59,6 @@ const Tasks = () => {
    }
 });
 
-console.log("eeeeeeeee",filteredTask)
 
 
   return (
@@ -86,14 +73,12 @@ console.log("eeeeeeeee",filteredTask)
       <hr className='mb-5'/>
 
       <div className="filtre flex md:gap-6 md:justify-center">
-        {/* {filtre && filtre.map((item, index)=>( */}
-  
+   
         <button onClick={()=>setFilter("my day")} className={`${getFilter === "my day" ? "bg-red-500" : " bg-transparent border-[2px] border-red-500"} p-2 capitalize hidden sm:block tracking-widest flex-1  rounded-md  font-bold text-white mb-5 `}>my day</button>
         <button onClick={()=>setFilter("all")} className={`${getFilter === "all" ? "bg-red-500" : " bg-transparent border-[2px] border-red-500"} p-2 capitalize hidden sm:block tracking-widest flex-1  rounded-md  font-bold text-white mb-5 `}>all</button>
         <button onClick={()=>setFilter("completed")} className={`${getFilter === "completed" ? "bg-red-500" : " bg-transparent border-[2px] border-red-500"} p-2 capitalize hidden sm:block tracking-widest flex-1  rounded-md  font-bold text-white mb-5 `}>completed</button>
         <button onClick={()=>setFilter("important")} className={`${getFilter === "important" ? "bg-red-500" : " bg-transparent border-[2px] border-red-500"} p-2 capitalize hidden sm:block tracking-widest flex-1  rounded-md  font-bold text-white mb-5 `}>important</button>
-        {/* ))} */}
-        
+         
         <select name="" id="" className=' sm:hidden p-2 mb-4'>
           <option value="">my day</option>
           <option value="">all</option>
@@ -122,7 +107,7 @@ console.log("eeeeeeeee",filteredTask)
                  <div className="card-footer mt-2 flex justify-between align-baseline">
                 {item?.important &&  <span className="status border p-1 w-32 text-sm text-center capitalize font-bold rounded-full text-white bg-red-500 shadow-md">important</span> }
                  <div className="action inline-flex gap-3 my-auto">
-                   <button onClick={()=>deleteTask(item._id)} type='button'><FaTrash/></button>
+                   <button onClick={()=>handleDeleteTask(item._id)} type='button'><FaTrash/></button>
                  </div>
             </div>
               </div>

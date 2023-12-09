@@ -1,7 +1,10 @@
 import React from 'react'
 import { Button, Empty } from 'antd';
-
+ 
 const EmptyComponent = () => {
+
+    
+
   return (
     <div className='flex mx-auto'>
          <Empty
@@ -13,7 +16,7 @@ const EmptyComponent = () => {
       </span>
     }
   >
-    <Button type="primary">Create Now</Button>
+    {/* <Button type="primary">Create Now</Button> */}
   </Empty>
     </div>
   )

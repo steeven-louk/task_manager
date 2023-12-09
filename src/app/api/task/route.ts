@@ -5,13 +5,17 @@ import Tasks from "@/app/libs/models/Tasks";
 import { NextResponse , NextRequest} from "next/server";
 
 
-export async function GET(){
+export async function GET(NextRequest:any){
     await connectMongoDb().catch((error)=> console.log(error));
 
     try {
-        const tasks = await Tasks.find({}).sort();
+        const userId = NextRequest.nextUrl.searchParams.get("userId")
+        if(!userId) return NextResponse.json({"message":"user not found"}, {status:404});
+        const tasks = await Tasks.find({user:userId});
+        console.log("userID", userId)
         return NextResponse.json({tasks}, {status:200});
     } catch (error) {
+        console.log("get error", error)
         return NextResponse.json({error},{status:500});
     }
 }

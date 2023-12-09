@@ -26,17 +26,15 @@ export async function POST(NextRequest:any){
         if(!comparePassword){
             return NextResponse.json( {'message':'email ou mot de pas incorrect'}, {status:400})
         }
-        // let {p,...info} = await userExist._doc;
-        const data ={
+         const data ={
            id: userExist._id,
            username: userExist.username
         }
-        const token =  jwt.sign({user:email},secret,{expiresIn:'4d'});
+        const token = await jwt.sign({user:email},secret,{expiresIn:'4d'});
         console.log("token", token)
        return NextResponse.json({data, token}, {status:200});
      
-        // return NextResponse.json({}, {status:201});
-    } catch (error) {
+     } catch (error) {
         console.log(error)
         return NextResponse.json({error}, {status:500})
     }
