@@ -5,8 +5,7 @@ import { MdDashboard } from "react-icons/md";
 import { GoTasklist } from "react-icons/go";
 import { AiOutlineFundProjectionScreen } from "react-icons/ai";
 import { FaCalendarAlt } from "react-icons/fa";
-// import { FaSun } from "react-icons/fa";
-// import { FaMoon } from "react-icons/fa";
+ 
 import { BiLogOut } from "react-icons/bi";
 
 import { IoMdPerson } from "react-icons/io";
@@ -31,17 +30,10 @@ export const Sidebar = () => {
             localStorage.removeItem("id")
             localStorage.removeItem("token")
             toast.success('🦄 Wow so easy!')
-            // setTimeout(() => {
-            //     // router.replace("auth/login");
-            //     //  return router.refresh();
-            //     // return router.push(<Login />);
-            //         // router.push("auth/login");
-            //         //  return router.refresh();
-                    
-            //  }, 3000);
-        }
+           
         return;
     }
+}
 
     return (
         <div className='sidebar rounded-md relative bg-red-800 text-white flex flex-col  h-[calc(100vh-.5rem)] w-[3rem] md:w-[11em]'>
@@ -55,12 +47,7 @@ export const Sidebar = () => {
                      <li className={`nav-item ps-3 ${pathName === "/tasks" ? "border-r-4 bg-slate-500" : ""} md:hover:border-r-4 text-xl leading-10 md:hover:bg-slate-500 border-green-500`}><Link href="/tasks" className="nav-link flex gap-2"><GoTasklist className="top-[10px] relative text-2xl"/><span className="hidden md:block">my tasks</span></Link></li>
                     <li className={`nav-item ps-3 ${pathName === "/projet" ? "border-r-4 bg-slate-500" : ""} md:hover:border-r-4 text-xl leading-10 md:hover:bg-slate-500 border-green-500 `}><Link href="/projet" className="nav-link gap-2 flex"><AiOutlineFundProjectionScreen className="top-[10px] relative text-2xl"/><span className="hidden md:block">projets</span></Link></li>
                     <li className="nav-item ps-3 mt-2 md:hover:border-r-4 text-xl leading-10 md:hover:bg-slate-500 border-green-500 "><a href="#" className="nav-link gap-2 flex"><FaCalendarAlt className="top-[10px] relative text-2xl"/><span className="hidden md:block">calendar</span></a></li>
-                    {/* <li className="nav-item hidden px-3 md:flex justify-between mt-5">
-                        <span className="nav-link">mode</span>
-                        <span className='top-[6px] relative'>
-                           {mode === "sun" ? <FaMoon/> : <FaSun/>}
-                        </span>
-                    </li> */}
+                     
                 </ul>
             </nav>
            </div>

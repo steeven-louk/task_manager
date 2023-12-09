@@ -1,7 +1,9 @@
 //@ts-nocheck
 import axios from "axios";
-
+ 
 const userId = JSON.parse(localStorage.getItem("id"));
+// eslint-disable-next-line react-hooks/rules-of-hooks
+ 
 
 export const getTasks =async()=>{
     

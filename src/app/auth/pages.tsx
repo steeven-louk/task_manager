@@ -1,13 +1,12 @@
 "use client"
 import {useState} from 'react';
 import LoginComponent from '../components/auth/Login';
-import Link from 'next/link';
 import { FcGoogle } from 'react-icons/fc';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import RegisterComponent from '../components/auth/Register';
-
+ 
 const Auth = () => {
   const [authType, setAuthType] = useState("login")
   const [username, setUsername] = useState("")
@@ -56,6 +55,7 @@ const Auth = () => {
         setError(data.data.response.data.message)
         return;
       }
+
 
     } catch (error) {
       console.log(error)
