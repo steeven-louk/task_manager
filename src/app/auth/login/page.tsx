@@ -42,7 +42,7 @@ const Login = () => {
         localStorage.setItem('token', JSON.stringify(data?.data.token))
         setEmail("");
         setPassword("")
-      return  router.replace('/')
+      return router.push('/');
 
         
       }

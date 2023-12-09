@@ -12,6 +12,7 @@ import { BiLogOut } from "react-icons/bi";
 import { IoMdPerson } from "react-icons/io";
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
+import Login from '../auth/login/page';
 
 
 
@@ -21,6 +22,7 @@ interface Props {
 }
 
 export const Sidebar = () => {
+    // @ts-ignore:next-line
 
     const username = JSON.parse(localStorage.getItem('username'))
     const pathName = usePathname();
@@ -33,7 +35,8 @@ export const Sidebar = () => {
             localStorage.removeItem("id")
             localStorage.removeItem("token")
             setTimeout(() => {
-                router.replace("auth/login");
+                // router.replace("auth/login");
+                return <Login/>
             }, 3000);
         }
         return;

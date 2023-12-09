@@ -30,6 +30,8 @@ export async function POST(NextRequest:any){
            id: userExist._id,
            username: userExist.username
         }
+    // @ts-ignore:next-line
+
         const token = await jwt.sign({user:email},secret,{expiresIn:'4d'});
         console.log("token", token)
        return NextResponse.json({data, token}, {status:200});
