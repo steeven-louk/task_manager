@@ -78,7 +78,8 @@ useEffect(() => {
    <EmptyComponent/>
     </>
           }
-{toggleModal && <ViewModal showTask={setToggleModal} id={viewElement._id} title={viewElement?.title} content={viewElement.description} />}
+ {/* @ts-ignore:next-line */}
+{toggleModal && <ViewModal showTask={setToggleModal} id={viewElement?._id} title={viewElement?.title} content={viewElement.description} />}
              
           
           </div>
