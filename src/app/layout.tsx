@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { Sidebar } from './components/Sidebar';
 import UserMiddleware from './middleware/page';
-import Login from './auth/login/page';
+// import Login from './auth/login/page';
 // import Login from './auth/login/page';
 
 import { ToastContainer } from 'react-toastify';
@@ -24,12 +24,13 @@ export default function RootLayout({
 // @ts-ignore:next-line
 
 
-  if (typeof window !== 'undefined') {
-    // @ts-ignore:next-line
- const   token = JSON.parse(localStorage.getItem('token'))
-console.log(token)
+//   if (typeof window !== 'undefined') {
+//     // @ts-ignore:next-line
+//  const   token = JSON.parse(localStorage.getItem('token'))
+// console.log(token)
 
-  }
+//   
+
 // console.log(token)
   return (
     <html lang="fr">

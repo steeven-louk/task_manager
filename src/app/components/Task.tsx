@@ -4,7 +4,7 @@ import { addTask } from '../services/function';
 import { useRouter } from 'next/navigation';
 
 type props={
-    setModal:any,
+    setModal: any
   }
 const Task:React.FC<props> = ({setModal}) => {
 

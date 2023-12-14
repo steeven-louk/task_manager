@@ -50,7 +50,7 @@ export const deleteTask = async(id:any)=>{
       const data = await axios.delete(`/api/task?id=${id}`);
       if(data.status === 200){
                 console.log("bien supprimer");
-              return getTasks();
+              return await getTasks();
               }
     }catch(error){ console.log(error)
   }

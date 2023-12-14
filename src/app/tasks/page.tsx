@@ -10,6 +10,7 @@ import EmptyComponent from '../components/Empty';
 // import getTasks from '../services/function';
 import { deleteTask, getTasks } from '../services/function';
 import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
 
 
 
@@ -31,7 +32,10 @@ const Tasks = () => {
 
   const handleDeleteTask = async(id:any)=>{      
       await deleteTask(id);
-     return router.refresh();
+      toast.done("supprimer avec succes");
+      return await getTasks();
+    //  return router.refresh();
+
 
   }
 
@@ -91,11 +95,11 @@ const Tasks = () => {
         </select>
       </div>
       <div className="task__container  flex flex-wrap w-full gap-3 md:justify-start h-[calc(100vh-12rem)]">
-       {filteredTask.length === 0 ? <>
+       {filteredTask?.length === 0 ? <>
         <EmptyComponent/>
         </>
         :
-        filteredTask.map((item:any)=>(
+        filteredTask?.map((item:any)=>(
           <>
                <div key={item._id} className="card p-4 border-2 rounded-xl justify-between flex flex-col overflow-hidden text-white shadow md:max-w-[18%] w-[100%] h-[12rem] ">
             <div onClick={()=>handleShowTask(item)} className="card-body cursor-pointer overflow-hidden">
@@ -119,7 +123,7 @@ const Tasks = () => {
          ))
         }
 
-       {filteredTask.length > 0 &&
+       {filteredTask?.length > 0 &&
         <button className="card p-4 border-2 rounded-xl block overflow-hidden shadow-md sm:max-w-[20%] w-[100%] h-[12rem]">
           <span className="text-xl font-bold">add new task</span>
         </button>
