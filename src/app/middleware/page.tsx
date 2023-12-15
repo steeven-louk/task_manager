@@ -8,10 +8,10 @@ import { useRouter } from 'next/navigation';
 const UserMiddleware = ({children}:any) => {
     const router =  useRouter();
     const [isLogin, setIsLogin] = useState(false);
-     const token = useRef(JSON.parse(localStorage.getItem("token") || ''));
+     const token = useRef(JSON.parse(localStorage.getItem("token") || '{}'));
     useEffect(() => {
         //  ref = JSON.parse(localStorage.getItem("token"));
-        const id = JSON.parse(localStorage.getItem("id") || '');
+        const id = JSON.parse(localStorage.getItem("id") || '{}');
         if(!token.current || token.current === "" && !id){
           return setIsLogin(false)
             // return router.replace("/auth/login")

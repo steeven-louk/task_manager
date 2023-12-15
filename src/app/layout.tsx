@@ -21,17 +21,9 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-// @ts-ignore:next-line
+ 
 
 
-//   if (typeof window !== 'undefined') {
-//     // @ts-ignore:next-line
-//  const   token = JSON.parse(localStorage.getItem('token'))
-// console.log(token)
-
-//   
-
-// console.log(token)
   return (
     <html lang="fr">
       <body className={inter.className}>

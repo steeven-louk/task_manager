@@ -18,7 +18,7 @@ import { usePathname, useRouter } from 'next/navigation';
  
 export const Sidebar = () => {
  
-    const username = JSON.parse(localStorage.getItem('username') || '')
+    const username = JSON.parse(localStorage.getItem('username') || '{}')
     const pathName = usePathname();
     const router = useRouter();
 
