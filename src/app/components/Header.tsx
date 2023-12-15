@@ -7,8 +7,8 @@ const Header = () => {
 
     let time = moment().format('[today] dddd')
 
-     // @ts-ignore:next-line
-     const username = JSON.parse(localStorage.getItem('username'))
+      
+     const username = JSON.parse(localStorage.getItem('username') || '')
   return (
     <header>
         <div className="head w-full ">

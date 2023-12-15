@@ -1,6 +1,5 @@
 import React from 'react'
-import Image from 'next/image';
-
+ 
 const ComingSoon = () => {
   return (
     <div className="container rounded-md  grid place-items-center">
